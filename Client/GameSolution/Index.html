@@ -1,0 +1,28 @@
+
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>Game</title>
+        <!--
+		    <script src="Library/jquery-2.1.1.js"></script>
+		    <script src="Library/easeljs-0.7.1.min.js"></script>
+        -->
+        <script src="scripts/lib/require.js"></script>
+        <script type="text/javascript">
+            require(["./scripts/common"], function (common) {
+                require(["app/main"]);
+            });
+        </script>
+
+		<!--
+            <script src="Core/Start.js"></script>
+        -->
+	</head>
+	<body>
+        <div>
+		    <canvas Width="500" Height="500" Id="demoCanvas"></canvas>
+        </div>
+        <input type="button"  value="Run debug mode" id="run-debug-mode" />
+	</body>
+</html>

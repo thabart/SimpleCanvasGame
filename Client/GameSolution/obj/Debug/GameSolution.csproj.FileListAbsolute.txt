@@ -1,0 +1,5 @@
+C:\Project\GitProject\CanvasGame\Client\GameSolution\bin\GameSolution.dll
+C:\Project\GitProject\CanvasGame\Client\GameSolution\bin\GameSolution.pdb
+C:\Project\GitProject\CanvasGame\Client\GameSolution\obj\Debug\GameSolution.csprojResolveAssemblyReference.cache
+C:\Project\GitProject\CanvasGame\Client\GameSolution\obj\Debug\GameSolution.dll
+C:\Project\GitProject\CanvasGame\Client\GameSolution\obj\Debug\GameSolution.pdb
