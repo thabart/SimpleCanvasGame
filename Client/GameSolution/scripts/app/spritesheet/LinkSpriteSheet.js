@@ -1,7 +1,12 @@
 ﻿define({
     id: "link",
-    src: ["images/walking.tunic.png"],
+    src: ["images/walking.tunic.png", "images/lifting.png", "images/carrying.png"],
     hitCircle : {
+        rx: 12,
+        ry: 12.5,
+        radius: 10
+    },
+    interactionCircle: {
         rx: 12,
         ry: 12.5,
         radius: 10
@@ -40,7 +45,17 @@
             [72, 135, 24, 25, 0],
             [120, 135, 24, 25, 0],
             [144, 135, 24, 25, 0],
-            [168, 135, 24, 25, 0]
+            [168, 135, 24, 25, 0],
+            // Lifting right
+            [9, 0, 34, 24, 1],
+            [57, 0, 34, 24, 1],
+            [105, 0, 34, 24, 1],
+            [153, 0, 34, 24, 1],
+            [203, 0, 34, 24, 1],
+            // Carrying right
+            [0, 0, 24, 24, 2],
+            [24, 0, 24, 24, 2],
+            [48, 0, 24, 24, 2]
         ],
         animations: {
             walkingRight: [0, 7, "walkingRight", 0.4],
@@ -50,7 +65,10 @@
             standRight: [0],
             standUp: [8],
             standLeft: [15],
-            standDown: [22]
+            standDown: [22],
+            LiftingRight: [29, 33, "LiftingRight", 0.4],
+            standLiftingRight: [34],
+            carryingRight: [34, 36, "carryingRight", 0.4]
         }
     }
 });

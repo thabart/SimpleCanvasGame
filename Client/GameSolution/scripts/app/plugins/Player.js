@@ -54,6 +54,18 @@ define([
     Player.prototype.StandDown = function () {
         this.animation.gotoAndPlay("standDown");
     }
+
+    Player.prototype.LiftingRight = function () {
+        this.animation.gotoAndPlay("LiftingRight");
+    }
+
+    Player.prototype.StandLiftingRight = function () {
+        this.animation.gotoAndPlay("standLiftingRight");
+    }
+
+    Player.prototype.CarryingRight = function () {
+        this.animation.gotoAndPlay("carryingRight");
+    }
         
     Player.prototype.GetCollisionCircle = function () {
         return this.circleShape;

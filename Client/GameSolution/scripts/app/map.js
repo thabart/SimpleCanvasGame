@@ -13,12 +13,18 @@
     function AddCircles(stage, element) {
         var hitDamageCircle = element.hitDamageCircleShape;
         var hitCircleShape = element.hitCircleShape;
+        var interactionCircleShape = element.interactionCircleShape;
+
         if (hitDamageCircle != null) {
             stage.addChild(hitDamageCircle);
         }
 
         if (hitCircleShape != null) {
             stage.addChild(hitCircleShape);
+        }
+
+        if (interactionCircleShape != null) {
+            stage.addChild(interactionCircleShape);
         }
     }
 
@@ -47,6 +53,8 @@
                 map.stage.removeChild(bombAnimation);
                 map.stage.removeChild(bomb.hitCircleShape);
                 map.stage.removeChild(bomb.hitDamageCircleShape);
+                map.stage.removeChild(bomb.interactionCircleShape);
+
                 var bombIndex = map.items.indexOf(bomb);
                 map.items.splice(bombIndex, 1);
             }
@@ -56,8 +64,7 @@
         bombAnimation.x = playerX + 30;
         bombAnimation.y = playerY;
 
-        bomb.RefreshHitCircle();
-        bomb.RefreshDamageCircle();
+        bomb.RefreshCircles();
 
         this.items.push(bomb);
         this.stage.addChild(bombAnimation);
@@ -82,6 +89,10 @@
 
     Map.prototype.CheckCollision = function (hitCircle) {
         return collisionEngine.CheckCollision(this.items, hitCircle);
+    }
+
+    Map.prototype.GetClosestItemToInteractWith = function (interactionCircle) {
+        return collisionEngine.GetClosestItemToInteractWith(this.items, interactionCircle);
     }
 
     return Map;

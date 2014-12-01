@@ -32,13 +32,25 @@
             for (var i = 0; i < entities.length; i++) {
                 var entity = entities[i];
                 var entityCircleShape = entity.GetHitCircle();
-                if (CheckIntersectionOfTwoCircle(entityCircleShape, shape) ||
-                    CheckCircleContainsCircle(entityCircleShape, shape)) {
+                if (!entity.IsCrossable &&
+                    (CheckIntersectionOfTwoCircle(entityCircleShape, shape) ||
+                    CheckCircleContainsCircle(entityCircleShape, shape))) {
                     return true;
                 }
             }
 
             return false;
+        },
+        GetClosestItemToInteractWith: function (entities, shape) {
+            for (var i = 0; i < entities.length; i++) {
+                var entity = entities[i];
+                var entityCircleShape = entity.GetInteractionCircle();
+                if (CheckIntersectionOfTwoCircle(entityCircleShape, shape)) {
+                    return entity;
+                }
+            }
+
+            return null;
         }
     };
 });

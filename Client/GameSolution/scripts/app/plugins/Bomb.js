@@ -19,6 +19,7 @@ define([
         this.spriteData = bombSpriteSheet.spriteData;
         this.defaultState = "drop";
         this.spriteSheet = bombSpriteSheet;
+        this.IsCrossable = false;
     }
 
     Bomb.prototype.Create = function () {

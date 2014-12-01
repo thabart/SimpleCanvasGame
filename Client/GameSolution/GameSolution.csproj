@@ -59,6 +59,7 @@
   <ItemGroup>
     <Content Include="images\bomb.png" />
     <Content Include="images\explosion.png" />
+    <Content Include="images\lifting.png" />
     <Content Include="images\walking.tunic.png" />
     <Content Include="scripts\app\collision.js" />
     <Content Include="scripts\app\bootstrapper.js" />

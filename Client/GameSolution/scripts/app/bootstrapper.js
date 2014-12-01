@@ -36,6 +36,7 @@ define([
 
                 function tick(event) {
                     playerController.RefreshPosition();
+                    playerController.RefreshState();
                     stage.update();
                 }
                 

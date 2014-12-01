@@ -7,8 +7,10 @@
     function BaseElement() {
         this.spriteSheet;
         this.defaultState;
+
         this.hitDamageCircleShape = null;
         this.hitCircleShape = null;
+        this.IsCrossable = true;
     }
 
     function GetCircle(circle, animation) {
@@ -59,6 +61,14 @@
             this.hitDamageCircleShape = circleShape;
             this.RefreshDamageCircle();
         }
+
+        // Create an interaction circle.
+        var interactionCircle = this.GetInteractionCircle();
+        if (interactionCircle != null) {
+            var circleShape = CreateCircle("#458B00", interactionCircle);
+            this.interactionCircleShape = circleShape;
+            this.RefreshInteractionCircle();
+        }
     }
 
     BaseElement.prototype.RefreshHitCircle = function () {
@@ -73,6 +83,18 @@
         this.hitDamageCircleShape.y = hitDamageCircle.y;
     }
 
+    BaseElement.prototype.RefreshInteractionCircle = function() {
+        var interactionCircle = this.GetInteractionCircle();
+        this.interactionCircleShape.x = interactionCircle.x;
+        this.interactionCircleShape.y = interactionCircle.y;
+    }
+
+    BaseElement.prototype.RefreshCircles = function () {
+        this.RefreshDamageCircle();
+        this.RefreshHitCircle();
+        this.RefreshInteractionCircle();
+    }
+
     BaseElement.prototype.GetHitCircle = function () {
         var spriteSheet = this.spriteSheet;
         var animation = this.animation;
@@ -83,6 +105,12 @@
         var spriteSheet = this.spriteSheet;
         var animation = this.animation;
         return GetCircle(spriteSheet.damageCircle, animation);
+    }
+
+    BaseElement.prototype.GetInteractionCircle = function () {
+        var spriteSheet = this.spriteSheet;
+        var animation = this.animation;
+        return GetCircle(spriteSheet.interactionCircle, animation);
     }
 
     BaseElement.prototype.Hit = function () {

@@ -11,6 +11,11 @@
         ry: 9,
         radius: 24
     },
+    interactionCircle : {
+        radius: 10,
+        rx: 8,
+        ry: 8
+    },
     spriteData: {
         frames: [
             // Drop
