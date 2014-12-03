@@ -32,6 +32,63 @@ define([
         }]
     ];
 
+    var mappingNameAnimation = [
+        {
+            animation : "carryingRight",
+            movement : function(player) {
+                player.CarryingRight();
+            } 
+        },
+        {
+            animation : "carryingLeft",
+            movement : function(player) {
+                player.CarryingLeft();
+            } 
+        },
+        {
+            animation : "carryingTop",
+            movement : function(player) {
+                player.CarryingTop();
+            } 
+        },
+        {
+            animation : "carryingBottom",
+            movement : function(player) {
+                player.CarryingBottom();
+            } 
+        },
+        {
+            animation : "carryingBottom",
+            movement : function(player) {
+                player.MoveBottom();
+            } 
+        },
+        {
+            animation : "walkingRight",
+            movement : function(player) {
+                player.MoveRight();
+            } 
+        },
+        {
+            animation : "walkingLeft",
+            movement : function(player) {
+                player.MoveLeft();
+            } 
+        },
+        {
+            animation : "walkingTop",
+            movement : function(player) {
+                player.MoveTop();
+            } 
+        },
+        {
+            animation : "walkingBottom",
+            movement : function(player) {
+                player.MoveBottom();
+            } 
+        }
+    ];
+
     // Private fields.
     var speed,
         carryingItem = null;
@@ -92,16 +149,19 @@ define([
                 result.interactionShapeX += speed;
                 break;
             case "walkingLeft":
+            case "carryingLeft":
                 result.x -= speed;
                 result.hitCircleX -= speed;
                 result.interactionShapeX -= speed;
                 break;
-            case "walkingUp":
+            case "walkingTop":
+            case "carryingTop":
                 result.y -= speed;
                 result.hitCircleY -= speed;
                 result.interactionShapeY -= speed;
                 break;
-            case "walkingDown":
+            case "walkingBottom":
+            case "carryingBottom":
                 result.y += speed;
                 result.hitCircleY += speed;
                 result.interactionShapeY += speed;
@@ -109,6 +169,126 @@ define([
         }
 
         return result;
+    }
+
+    function BombAnimationEnd(event, player) {
+        if (event.name == "explod") {
+            carryingItem = null;
+            StopCarryingPlayer(player);
+        }
+    }
+
+    function StopCarryingPlayer(player) {
+        var animation = player.GetAnimation();
+        var currentAnimation = animation.currentAnimation;
+        switch (currentAnimation) {
+            case "carryingRight":
+                player.MoveRight();
+                break;
+            case "carryingLeft":
+                player.MoveLeft();
+                break;
+            case "carryingTop":
+                player.MoveTop();
+                break;
+            case "carryingBottom":
+                player.MoveBottom();
+                break;
+            case "standLiftingRight":
+                player.StandRight();
+                break;
+            case "standLiftingLeft":
+                player.StandLeft();
+                break;
+            case "standLiftingTop":
+                player.StandTop();
+                break;
+            case "standLiftingBottom":
+                player.StandBottom();
+                break;
+        }
+    }
+
+    function StopMovingPlayer(player) {
+        var animation = player.GetAnimation();
+        var currentAnimation = animation.currentAnimation;
+        switch (currentAnimation) {
+            case "walkingRight":
+                player.StandRight();
+                break;
+            case "walkingLeft":
+                player.StandLeft();
+                break;
+            case "walkingTop":
+                player.StandTop();
+                break;
+            case "walkingBottom":
+                player.StandBottom();
+                break;
+            case "carryingRight":
+                player.StandLiftingRight();
+                break;
+            case "carryingLeft":
+                player.StandLiftingLeft();
+                break;
+            case "carryingTop":
+                player.StandLiftingTop();
+                break;
+            case "carryingBottom":
+                player.StandLiftingBottom();
+                break;
+        }
+    }
+    
+    function DropBomb(player, map) {
+        var animation = player.GetAnimation();
+        var bomb = new Bomb();
+        bomb.Create();
+        map.AddBomb(bomb, animation.x, animation.y);
+    }
+
+    function CarryAnItem(player, map) {
+        var interactionCircle = player.GetInteractionCircle();
+        var item = map.GetClosestItemToInteractWith(interactionCircle);
+        if (item != null) {
+            player.LiftingRight();
+            carryingItem = item;
+            carryingItem.animation.on("animationend", function (evt) {
+                BombAnimationEnd(evt, player);
+            });
+        }
+    }
+
+    function GetAnimationFunctionByName(name) {
+        for (var i = 0; i < mappingNameAnimation.length; i++) {
+            var mapping = mappingNameAnimation[i];  
+            if (name == mapping.animation) {
+                return mapping.movement;
+            }
+        }
+
+        return null;
+    }
+
+    function SwitchAnimation(player, direction) {
+        var animation = player.GetAnimation();
+        var currentAnimation = animation.currentAnimation;
+        var animationName = null;
+        var movement = null;
+
+        if (carryingItem != null) {
+            animationName = "carrying" + direction;
+        } else {
+            animationName = "walking" + direction;
+        }
+
+        if (currentAnimation != animationName) {
+            movement = GetAnimationFunctionByName(animationName);
+        }
+
+        if (movement != null) {
+            movement(player);
+        }
     }
 
     PlayerController.prototype.RefreshPosition = function () {
@@ -144,53 +324,29 @@ define([
 
     PlayerController.prototype.ExecuteActionOnKeyDown = function (keyCode, stage) {
         var animation = this.player.GetAnimation();
-        var bombAnimationEnd = function (evt) {
-            if (evt.name == "explod") {
-                carryingItem = null;
-            }
-        }
-
         var currentAnimation = animation.currentAnimation;
         switch (keyCode) {
             case 39:
-                if (carryingItem != null) {
-                    if (currentAnimation != "carryingRight") {
-                        this.player.CarryingRight();
-                    }
-                } else {
-                    if (currentAnimation != "walkingRight") {
-                        this.player.MoveRight();
-                    }
-                }
+                SwitchAnimation(this.player, "Right");
                 break;
             case 37:
-                if (currentAnimation != "walkingLeft") {
-                    this.player.MoveLeft();
-                }
+                SwitchAnimation(this.player, "Left");
                 break;
             case 38:
-                if (currentAnimation != "walkingUp") {
-                    this.player.MoveUp();
-                }
+                SwitchAnimation(this.player, "Top");
                 break;
             case 40:
-                if (currentAnimation != "walkingDown") {
-                    this.player.MoveDown();
-                }
+                SwitchAnimation(this.player, "Bottom");
                 break;
             case 66:
-                var bomb = new Bomb();
-                bomb.Create();
-                this.map.AddBomb(bomb, animation.x, animation.y);
-                bomb.animation.on("animationend", bombAnimationEnd);
+                if (carryingItem == null) {
+                    DropBomb(this.player, this.map);
+                }
 
                 break;
             case 65:
-                var interactionCircle = this.player.GetInteractionCircle();
-                var item = this.map.GetClosestItemToInteractWith(interactionCircle);
-                if (item != null) {
-                    this.player.LiftingRight();
-                    carryingItem = item;
+                if (carryingItem == null) {
+                    CarryAnItem(this.player, this.map);
                 }
 
                 break;
@@ -198,25 +354,7 @@ define([
     }
 
     PlayerController.prototype.ExecuteActionOnKeyUp = function (keyCode) {
-        var animation = this.player.GetAnimation();
-        var currentAnimation = animation.currentAnimation;
-        switch (currentAnimation) {
-            case "walkingRight":
-                this.player.StandRight();
-                break;
-            case "walkingLeft":
-                this.player.StandLeft();
-                break;
-            case "walkingUp":
-                this.player.StandUp();
-                break;
-            case "walkingDown":
-                this.player.StandDown();
-                break;
-            case "carryingRight":
-                this.player.StandLiftingRight();
-                break;
-        }
+        StopMovingPlayer(this.player);
     }
 
     return PlayerController;

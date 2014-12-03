@@ -15,7 +15,7 @@ define([
 
     // Constructor
     function Player() {
-        this.defaultState = "standDown";
+        this.defaultState = "standBottom";
         this.spriteSheet = linkSpriteSheet;
     }
     
@@ -31,12 +31,12 @@ define([
         this.animation.gotoAndPlay("walkingLeft");
     }
 
-    Player.prototype.MoveDown = function () {
-        this.animation.gotoAndPlay("walkingDown");
+    Player.prototype.MoveBottom = function () {
+        this.animation.gotoAndPlay("walkingBottom");
     }
 
-    Player.prototype.MoveUp = function () {
-        this.animation.gotoAndPlay("walkingUp");
+    Player.prototype.MoveTop = function () {
+        this.animation.gotoAndPlay("walkingTop");
     }
 
     Player.prototype.StandRight = function () {
@@ -47,12 +47,12 @@ define([
         this.animation.gotoAndPlay("standLeft");
     }
 
-    Player.prototype.StandUp = function () {
-        this.animation.gotoAndPlay("standUp");
+    Player.prototype.StandTop = function () {
+        this.animation.gotoAndPlay("standTop");
     }
 
-    Player.prototype.StandDown = function () {
-        this.animation.gotoAndPlay("standDown");
+    Player.prototype.StandBottom= function () {
+        this.animation.gotoAndPlay("standBottom");
     }
 
     Player.prototype.LiftingRight = function () {
@@ -63,8 +63,32 @@ define([
         this.animation.gotoAndPlay("standLiftingRight");
     }
 
+    Player.prototype.StandLiftingLeft = function () {
+        this.animation.gotoAndPlay("standLiftingLeft");
+    }
+
+    Player.prototype.StandLiftingTop = function () {
+        this.animation.gotoAndPlay("standLiftingTop");
+    }
+
+    Player.prototype.StandLiftingBottom = function () {
+        this.animation.gotoAndPlay("standLiftingBottom");
+    }
+
     Player.prototype.CarryingRight = function () {
         this.animation.gotoAndPlay("carryingRight");
+    }
+
+    Player.prototype.CarryingLeft = function () {
+        this.animation.gotoAndPlay("carryingLeft");
+    }
+
+    Player.prototype.CarryingTop = function () {
+        this.animation.gotoAndPlay("carryingTop");
+    }
+
+    Player.prototype.CarryingBottom = function () {
+        this.animation.gotoAndPlay("carryingBottom");
     }
         
     Player.prototype.GetCollisionCircle = function () {

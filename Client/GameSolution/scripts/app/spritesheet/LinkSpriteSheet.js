@@ -22,7 +22,7 @@
             [120, 8, 24, 25, 0],
             [144, 8, 24, 25, 0],
             [168, 8, 24, 25, 0],
-            // Walking up
+            // Walking top
             [0, 39, 24, 25, 0],
             [24, 39, 24, 25, 0],
             [48, 39, 24, 25, 0],
@@ -38,7 +38,7 @@
             [120, 104, 24, 25, 0],
             [144, 104, 24, 25, 0],
             [168, 104, 24, 25, 0],
-            // Walking down
+            // Walking top
             [0, 135, 24, 25, 0],
             [24, 135, 24, 25, 0],
             [48, 135, 24, 25, 0],
@@ -55,20 +55,44 @@
             // Carrying right
             [0, 0, 24, 24, 2],
             [24, 0, 24, 24, 2],
-            [48, 0, 24, 24, 2]
+            [48, 0, 24, 24, 2],
+            // Carrying left
+            [72, 0, 24, 24, 2],
+            [96, 0, 24, 24, 2],
+            [120, 0, 24, 24, 2],
+            // Carrying top
+            [0, 24, 24, 24, 2],
+            [24, 24, 24, 24, 2],
+            [48, 24, 24, 24, 2],
+            [72, 24, 24, 24, 2],
+            [96, 24, 24, 24, 2],
+            [120, 24, 24, 24, 2],
+            // Carrying bottom
+            [0, 48, 24, 24, 2],
+            [24, 48, 24, 24, 2],
+            [48, 48, 24, 24, 2],
+            [72, 48, 24, 24, 2],
+            [96, 48, 24, 24, 2],
+            [120, 48, 24, 24, 2]
         ],
         animations: {
             walkingRight: [0, 7, "walkingRight", 0.4],
-            walkingUp: [8, 14, "walkingUp", 0.4],
+            walkingTop: [8, 14, "walkingTop", 0.4],
             walkingLeft: [15, 21, "walkingLeft", 0.4],
-            walkingDown: [22, 28, "walkingDown", 0.4],
+            walkingBottom: [22, 28, "walkingBottom", 0.4],
             standRight: [0],
-            standUp: [8],
+            standTop: [8],
             standLeft: [15],
-            standDown: [22],
+            standBottom: [22],
             LiftingRight: [29, 33, "LiftingRight", 0.4],
             standLiftingRight: [34],
-            carryingRight: [34, 36, "carryingRight", 0.4]
+            standLiftingLeft: [37],
+            standLiftingTop: [40],
+            standLiftingBottom: [46],
+            carryingRight: [34, 36, "carryingRight", 0.4],
+            carryingLeft: [37, 39, "carryingLeft", 0.4],
+            carryingTop: [40, 45, "carryingTop", 0.4],
+            carryingBottom: [46, 51, "carryingBottom", 0.4]
         }
     }
 });
