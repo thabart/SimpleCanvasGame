@@ -57,6 +57,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\action_icon.png" />
     <Content Include="images\bomb.png" />
     <Content Include="images\explosion.png" />
     <Content Include="images\lifting.png" />
@@ -66,11 +67,13 @@
     <Content Include="scripts\app\main.js" />
     <Content Include="Index.html" />
     <Content Include="scripts\app\map.js" />
+    <Content Include="scripts\app\menu.js" />
     <Content Include="scripts\app\PlayerController.js" />
     <Content Include="scripts\app\plugins\BaseElement.js" />
     <Content Include="scripts\app\plugins\Bomb.js" />
     <Content Include="scripts\app\plugins\Player.js" />
     <Content Include="scripts\app\SpriteSheetLoader.js" />
+    <Content Include="scripts\app\spritesheet\ActionSpriteSheet.js" />
     <Content Include="scripts\app\spritesheet\BombSpriteSheet.js" />
     <Content Include="scripts\app\spritesheet\LinkSpriteSheet.js" />
     <Content Include="scripts\common.js" />

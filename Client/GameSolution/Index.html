@@ -20,8 +20,10 @@
         -->
 	</head>
 	<body>
-        <div>
-		    <canvas Width="500" Height="500" Id="demoCanvas"></canvas>
+        <div style="width: 500px; height: 500px;">
+            <canvas width="500" Height="500" id="playerCanvas" style="position:absolute; left:0; top:0; z-index:0;"></canvas>
+            <canvas width="500" Height="500" id="itemsCanvas" style="position: absolute; left: 0; top: 0; z-index: 1;"></canvas>
+            <canvas width="500" Height="500" id="menuCanvas" style="position:absolute; left:0; top:0; z-index:2;"></canvas>
         </div>
         <input type="button"  value="Run debug mode" id="run-debug-mode" />
 	</body>

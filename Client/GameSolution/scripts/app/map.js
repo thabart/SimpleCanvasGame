@@ -2,12 +2,13 @@
     "app/collision"
 ], function (collisionEngine) {
 
-    function Map(stage) {
+    function Map(playersStage, itemsStage) {
         this.players = [];
         this.enemies = [];
         this.items = [];
 
-        this.stage = stage;
+        this.playersStage = playersStage;
+        this.itemsStage = itemsStage;
     }
 
     function AddCircles(stage, element) {
@@ -35,9 +36,9 @@
     Map.prototype.AddPlayer = function (player) {
         this.players.push(player);
         var animation = player.GetAnimation();
-        this.stage.addChild(animation);
+        this.playersStage.addChild(animation);
         if (this.debugMode) {
-            AddCircles(this.stage, player);
+            AddCircles(this.playersStage, player);
         }
     }
 
@@ -50,10 +51,10 @@
 
                 collisionEngine.CheckCollision(map.players, bomb.GetDamageCircle())
 
-                map.stage.removeChild(bombAnimation);
-                map.stage.removeChild(bomb.hitCircleShape);
-                map.stage.removeChild(bomb.hitDamageCircleShape);
-                map.stage.removeChild(bomb.interactionCircleShape);
+                map.itemsStage.removeChild(bombAnimation);
+                map.itemsStage.removeChild(bomb.hitCircleShape);
+                map.itemsStage.removeChild(bomb.hitDamageCircleShape);
+                map.itemsStage.removeChild(bomb.interactionCircleShape);
 
                 var bombIndex = map.items.indexOf(bomb);
                 map.items.splice(bombIndex, 1);
@@ -67,9 +68,9 @@
         bomb.RefreshCircles();
 
         this.items.push(bomb);
-        this.stage.addChild(bombAnimation);
+        this.itemsStage.addChild(bombAnimation);
         if (this.debugMode) {
-            AddCircles(this.stage, bomb);
+            AddCircles(this.itemsStage, bomb);
         }
     }
 
@@ -78,12 +79,12 @@
 
         for (var i = 0; i < this.players.length; i++) {
             var player = this.players[i];
-            AddCircles(this.stage, player);
+            AddCircles(this.playersStage, player);
         }
 
         for (var i = 0; i < this.items.length; i++) {
             var item = this.items[i];
-            AddCircles(this.stage, item);
+            AddCircles(this.itemsStage, item);
         }
     }
 

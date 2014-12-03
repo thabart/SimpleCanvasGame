@@ -7,11 +7,15 @@ define([
     "jquery",
     "app/SpriteSheetLoader",
     "app/PlayerController",
-    "app/map"
-], function ($, spriteSheetLoader, PlayerController, Map) {
+    "app/map",
+    "app/menu"
+], function ($, spriteSheetLoader, PlayerController, Map, menu) {
     
     // Private fields
-    var stage = new createjs.Stage("demoCanvas");
+    var playerStage = new createjs.Stage("playerCanvas");
+    var itemsStage = new createjs.Stage("itemsCanvas");
+    var menuStage = new createjs.Stage("menuCanvas");
+
     var fps = 60;
     var useRaf = true;
     var scaleX = 2;
@@ -21,29 +25,38 @@ define([
     var map = null;
 
     //URL : file:///C:/Project/GitProject/CanvasGame/tilemap-renderer/renderer.js
-    
+        
     return {
         Start: function () {
-            stage.scaleX = scaleX;
-            stage.scaleY = scaleY;
+            playerStage.scaleX = scaleX;
+            playerStage.scaleY = scaleY;
+            itemsStage.scaleX = scaleX;
+            itemsStage.scaleY = scaleY;
+            menuStage.scaleX = scaleX;
+            menuStage.scaleY = scaleY;
+
             createjs.Ticker.useRAF = useRaf;            createjs.Ticker.setFPS(fps);
 
             spriteSheetLoader.Initialize(function () {
-                map = new Map(stage);
+                map = new Map(playerStage, itemsStage);
                 map.Load();
+
+                menu.Initialize(menuStage);
 
                 playerController = new PlayerController(map);
 
                 function tick(event) {
                     playerController.RefreshPosition();
                     playerController.RefreshState();
-                    stage.update();
+
+                    playerStage.update();
+                    itemsStage.update();
                 }
                 
                 createjs.Ticker.addEventListener("tick", tick);
 
                 $(document).keydown(function (evt) {
-                    playerController.ExecuteActionOnKeyDown(evt.keyCode, stage);
+                    playerController.ExecuteActionOnKeyDown(evt.keyCode, playerStage);
                 });
 
                 $(document).keyup(function (evt) {

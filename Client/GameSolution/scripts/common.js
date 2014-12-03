@@ -18,6 +18,7 @@ requirejs.config({
 define('spritesheets', function (require) {
     return [
         require('app/spritesheet/LinkSpriteSheet'),
-        require('app/spritesheet/BombSpriteSheet')
+        require('app/spritesheet/BombSpriteSheet'),
+        require('app/spritesheet/ActionSpriteSheet')
     ];
 });
