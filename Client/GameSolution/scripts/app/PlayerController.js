@@ -1,8 +1,9 @@
 ﻿
 define([
     "app/plugins/Player",
-    "app/plugins/Bomb"
-], function (Player, Bomb, collisionEngine) {
+    "app/plugins/Bomb",
+    "app/menu"
+], function (Player, Bomb, menu) {
 
     // Temporary solution, we have to include later this data in the spriteSheet.
     var itemPositions = [
@@ -307,6 +308,9 @@ define([
             animation.y = newPosition.y;
             hitCircleShape.y = newPosition.hitCircleY;
             interactionCircleShape.y = newPosition.interactionShapeY;
+            menu.DisplayNoAction();
+        } else {
+            menu.DisplayCarryOption();
         }
     }
 
@@ -322,9 +326,7 @@ define([
         }
     }
 
-    PlayerController.prototype.ExecuteActionOnKeyDown = function (keyCode, stage) {
-        var animation = this.player.GetAnimation();
-        var currentAnimation = animation.currentAnimation;
+    PlayerController.prototype.ExecuteActionOnKeyDown = function (keyCode) {
         switch (keyCode) {
             case 39:
                 SwitchAnimation(this.player, "Right");

@@ -3,44 +3,47 @@
    "app/SpriteSheetLoader",
     "easel",
     "preloadjs"
-], function (spriteSheet, spriteSheetLoader) {
+], function (spriteSheetInformation, spriteSheetLoader) {
 
+    // Private fields
     var defaultState = "init";
-    var spriteData = spriteSheet;
-
-    var MyGeometry = {
-        mixScaleAndRotationX: function (scale, rotation) {
-            return Math.sin(rotation / 360 * Math.PI) * scale;
-        },
-        mixScaleAndRotationY: function (scale, rotation) {
-            return Math.cos(rotation / 360 * Math.PI) * scale;
-        }
-    }
-
-    var sprite = spriteSheet;
+    var carryButton;
 
     return {
         Initialize: function (stage) {
-            var spriteSheetId = spriteData.id;
+            var spriteSheetId = spriteSheetInformation.id;
             var spriteSheet = spriteSheetLoader.GetSpriteSheet(spriteSheetId);
             var animation = new createjs.Sprite(spriteSheet, defaultState);
             
-            var container = stage.addChild(animation);
-            container.x = 20;
-            container.y = 30;
-            container.rotationX = 0;
-            container.rotationY = 0;
-            container.rscaleY = 1;
+            carryButton = stage.addChild(animation);
+            carryButton.x = 10;
+            carryButton.y = 10;
+            carryButton.rotationX = 0;
+            carryButton.rotationY = 0;
+            carryButton.scaleY = 0;
 
-            function tmp() {
-                container.rotationY += 4;
-                // container.scaleX = MyGeometry.mixScaleAndRotationX(container.rscaleX, container.rotationX + 90);
-                container.scaleY = MyGeometry.mixScaleAndRotationY(container.rscaleY, container.rotationY + 90);
+            function AnimatingMenu() {
+                if (carryButton.scaleY < 1) {
+                    carryButton.scaleY += 0.05;
+                }
+
                 stage.update();
             }
 
             stage.update();
-            createjs.Ticker.addEventListener("tick", tmp);
+            createjs.Ticker.addEventListener("tick", AnimatingMenu);
+        },
+        DisplayCarryOption: function () {
+            if (carryButton.currentAnimation != "carry") {
+                carryButton.gotoAndPlay("carry");
+                carryButton.scaleY = 0;
+            }
+        },
+        DisplayNoAction: function () {
+            if (carryButton.currentAnimation != "init") {
+                carryButton.gotoAndPlay(defaultState);
+                carryButton.scaleY = 0;
+            }
         }
     };
 });
