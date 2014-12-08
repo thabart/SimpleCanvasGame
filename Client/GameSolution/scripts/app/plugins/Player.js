@@ -59,6 +59,18 @@ define([
         this.animation.gotoAndPlay("LiftingRight");
     }
 
+    Player.prototype.LiftingLeft = function () {
+        this.animation.gotoAndPlay("LiftingLeft");
+    }
+
+    Player.prototype.LiftingTop = function () {
+        this.animation.gotoAndPlay("LiftingTop");
+    }
+
+    Player.prototype.LiftingBottom = function () {
+        this.animation.gotoAndPlay("LiftingBottom");
+    }
+
     Player.prototype.StandLiftingRight = function () {
         this.animation.gotoAndPlay("standLiftingRight");
     }
@@ -97,6 +109,10 @@ define([
 
     Player.prototype.Hit = function () {
 
+    }
+
+    Player.prototype.GetItemPositionsWhenCarrying = function() {
+        return this.spriteSheet.itemPositionsWhenCarrying;
     }
 
     return Player;

@@ -111,9 +111,26 @@ define([
         var map = this;
 
         var handlePlayerAnimationCompleted = function (evt) {
+            switch (evt.name) {
+                case "LiftingRight":
+                    carryingItem.IsCrossable = true;
+                    map.player.StandLiftingRight();
+                    break;
+                case "LiftingLeft":
+                    carryingItem.IsCrossable = true;
+                    map.player.StandLiftingLeft();
+                    break;
+                case "LiftingTop":
+                    carryingItem.IsCrossable = true;
+                    map.player.StandLiftingTop();
+                    break;
+                case "LiftingBottom":
+                    carryingItem.IsCrossable = true;
+                    map.player.StandLiftingBottom();
+                    break;
+            }
+
             if (evt.name == "LiftingRight") {
-                carryingItem.IsCrossable = true;
-                map.player.StandLiftingRight();
             }
         }
 
@@ -252,7 +269,30 @@ define([
         var interactionCircle = player.GetInteractionCircle();
         var item = map.GetClosestItemToInteractWith(interactionCircle);
         if (item != null) {
-            player.LiftingRight();
+            var animation = player.GetAnimation();
+            var currentAnimation = animation.currentAnimation;
+            switch (currentAnimation) {
+                case "walkingRight":
+                case "standRight":
+                    player.LiftingRight();
+                    break;
+
+                case "walkingLeft":
+                case "standLeft":
+                    player.LiftingLeft();
+                    break;
+
+                case "walkingTop":
+                case "standTop":
+                    player.LiftingTop();
+                    break;
+
+                case "walkingBottom":
+                case "standBottom":
+                    player.LiftingBottom();
+                    break;
+            }
+
             carryingItem = item;
             carryingItem.animation.on("animationend", function (evt) {
                 BombAnimationEnd(evt, player);
@@ -308,9 +348,6 @@ define([
             animation.y = newPosition.y;
             hitCircleShape.y = newPosition.hitCircleY;
             interactionCircleShape.y = newPosition.interactionShapeY;
-            menu.DisplayNoAction();
-        } else {
-            menu.DisplayCarryOption();
         }
     }
 
@@ -323,6 +360,16 @@ define([
             carryingItem.animation.y = animation.y + position.ry;
 
             carryingItem.RefreshCircles();
+        }
+    }
+
+    PlayerController.prototype.RefreshPossibleActions = function() {
+        var interactionCircle = this.player.GetInteractionCircle();
+        var item = this.map.GetClosestItemToInteractWith(interactionCircle);
+        if (item != null) {
+            menu.DisplayCarryOption();
+        } else {
+            menu.DisplayNoAction();
         }
     }
 

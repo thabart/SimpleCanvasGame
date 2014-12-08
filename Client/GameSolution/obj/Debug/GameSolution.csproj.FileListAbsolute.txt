@@ -3,3 +3,8 @@ C:\Project\GitProject\CanvasGame\Client\GameSolution\bin\GameSolution.pdb
 C:\Project\GitProject\CanvasGame\Client\GameSolution\obj\Debug\GameSolution.csprojResolveAssemblyReference.cache
 C:\Project\GitProject\CanvasGame\Client\GameSolution\obj\Debug\GameSolution.dll
 C:\Project\GitProject\CanvasGame\Client\GameSolution\obj\Debug\GameSolution.pdb
+C:\PersonnalProject\canvasgame\Client\GameSolution\bin\GameSolution.dll
+C:\PersonnalProject\canvasgame\Client\GameSolution\bin\GameSolution.pdb
+C:\PersonnalProject\canvasgame\Client\GameSolution\obj\Debug\GameSolution.csprojResolveAssemblyReference.cache
+C:\PersonnalProject\canvasgame\Client\GameSolution\obj\Debug\GameSolution.dll
+C:\PersonnalProject\canvasgame\Client\GameSolution\obj\Debug\GameSolution.pdb

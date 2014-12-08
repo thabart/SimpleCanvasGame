@@ -1,7 +1,7 @@
 ﻿define({
     id: "link",
     src: ["images/walking.tunic.png", "images/lifting.png", "images/carrying.png"],
-    hitCircle : {
+    hitCircle: {
         rx: 12,
         ry: 12.5,
         radius: 10
@@ -10,6 +10,49 @@
         rx: 12,
         ry: 12.5,
         radius: 10
+    },
+    itemPositionsWhenCarrying: {
+        carryFromLeft: [
+            [
+                29, {
+                    rx: 20,
+                    ry: 8
+                }
+            ],
+            [
+                30, {
+                    rx: 20,
+                    ry: 8
+                }
+            ],
+            [
+                31, {
+                    rx: 20,
+                    ry: 8
+                }
+            ],
+            [
+                32, {
+                    rx: 18,
+                    ry: 8
+                }
+            ],
+            [
+                33, {
+                    rx: 5,
+                    ry: -10
+                }
+            ],
+            [
+                "default", {
+                    rx: 5,
+                    ry: -10
+                }
+            ]
+        ],
+        carryFromRight: [],
+        carryFromTop: [],
+        carryFromBottom: []
     },
     spriteData: {
         frames: [
@@ -52,6 +95,24 @@
             [105, 0, 34, 24, 1],
             [153, 0, 34, 24, 1],
             [203, 0, 34, 24, 1],
+            // Lifting top
+            [9, 25, 34, 24, 1],
+            [57, 25, 34, 24, 1],
+            [105, 25, 34, 24, 1],
+            [153, 25, 34, 24, 1],
+            [203, 25, 34, 24, 1],
+            // Lifting left
+            [9, 49, 34, 24, 1],
+            [57, 49, 34, 24, 1],
+            [105, 49, 34, 24, 1],
+            [153, 49, 34, 24, 1],
+            [203, 49, 34, 24, 1],
+            // Lifting bottom
+            [9, 73, 34, 24, 1],
+            [57, 73, 34, 24, 1],
+            [105, 73, 34, 24, 1],
+            [153, 73, 34, 24, 1],
+            [203, 73, 34, 24, 1],
             // Carrying right
             [0, 0, 24, 24, 2],
             [24, 0, 24, 24, 2],
@@ -85,14 +146,17 @@
             standLeft: [15],
             standBottom: [22],
             LiftingRight: [29, 33, "LiftingRight", 0.4],
-            standLiftingRight: [34],
-            standLiftingLeft: [37],
-            standLiftingTop: [40],
-            standLiftingBottom: [46],
-            carryingRight: [34, 36, "carryingRight", 0.4],
-            carryingLeft: [37, 39, "carryingLeft", 0.4],
-            carryingTop: [40, 45, "carryingTop", 0.4],
-            carryingBottom: [46, 51, "carryingBottom", 0.4]
+            LiftingTop: [34, 38, "LiftingTop", 0.4],
+            LiftingLeft: [39, 43, "LiftingLeft", 0.4],
+            LiftingBottom: [44, 48, "LiftingBottom", 0.4],
+            standLiftingRight: [49],
+            standLiftingLeft: [52],
+            standLiftingTop: [55],
+            standLiftingBottom: [61],
+            carryingRight: [49, 51, "carryingRight", 0.4],
+            carryingLeft: [52, 54, "carryingLeft", 0.4],
+            carryingTop: [55, 60, "carryingTop", 0.4],
+            carryingBottom: [61, 66, "carryingBottom", 0.4]
         }
     }
 });

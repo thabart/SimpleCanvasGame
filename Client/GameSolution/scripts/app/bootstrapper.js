@@ -48,6 +48,7 @@ define([
                 function tick(event) {
                     playerController.RefreshPosition();
                     playerController.RefreshState();
+                    playerController.RefreshPossibleActions();
 
                     playerStage.update();
                     itemsStage.update();
