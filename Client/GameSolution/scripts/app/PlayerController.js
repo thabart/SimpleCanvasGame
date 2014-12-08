@@ -5,34 +5,6 @@ define([
     "app/menu"
 ], function (Player, Bomb, menu) {
 
-    // Temporary solution, we have to include later this data in the spriteSheet.
-    var itemPositions = [
-        [29, {
-            rx: 20,
-            ry: 8
-        }],
-        [30, {
-            rx: 20,
-            ry: 8
-        }],
-        [31, {
-            rx: 20,
-            ry: 8
-        }],
-        [32, {
-            rx: 18,
-            ry: 8
-        }],
-        [33, {
-            rx: 5,
-            ry: -10
-        }],
-        ["default", {
-            rx: 5,
-            ry: -10
-        }]
-    ];
-
     var mappingNameAnimation = [
         {
             animation : "carryingRight",
@@ -137,7 +109,7 @@ define([
         animation.on("animationend", handlePlayerAnimationCompleted);
     }
 
-    function GetItemPosition(currentFrame) {
+    function GetItemPosition(currentFrame, itemPositions) {
         for (var i = 0; i < itemPositions.length; i++) {
             var itemPosition = itemPositions[i];
             if (itemPosition[0] == currentFrame) {
@@ -145,7 +117,7 @@ define([
             }
         }
 
-        return GetItemPosition("default");
+        return GetItemPosition("default", itemPositions);
     }
 
     function CalculateNewPlayerPosition(animation, hitCircleShape, interactionShape) {
@@ -353,9 +325,10 @@ define([
 
     PlayerController.prototype.RefreshState = function () {
         var animation = this.player.GetAnimation();
+        var itemPositionsWhenCarrying = this.player.GetItemPositionsWhenCarrying();
         var currentFrame = animation._currentFrame;
         if (carryingItem != null) {
-            var position = GetItemPosition(currentFrame);
+            var position = GetItemPosition(currentFrame, itemPositionsWhenCarrying);
             carryingItem.animation.x = animation.x + position.rx;
             carryingItem.animation.y = animation.y + position.ry;
 
@@ -366,7 +339,9 @@ define([
     PlayerController.prototype.RefreshPossibleActions = function() {
         var interactionCircle = this.player.GetInteractionCircle();
         var item = this.map.GetClosestItemToInteractWith(interactionCircle);
-        if (item != null) {
+        if (carryingItem != null) {
+            menu.DisplayThrowAction();
+        } else if (item != null) {
             menu.DisplayCarryOption();
         } else {
             menu.DisplayNoAction();

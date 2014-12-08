@@ -44,6 +44,12 @@
                 carryButton.gotoAndPlay(defaultState);
                 carryButton.scaleY = 0;
             }
+        },
+        DisplayThrowAction: function () {
+            if (carryButton.currentAnimation != "drop") {
+                carryButton.gotoAndPlay("drop");
+                carryButton.scaleY = 0;
+            }
         }
     };
 });
